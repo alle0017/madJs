@@ -26,7 +26,7 @@ export default class Game {
 
       /**
        * @type {{ 
-       * method: 'draw' | 'stop' | 'create' | 'addToScene' | 'removeFromScene' | 'update' | 'startGame' | 'createGlobalBuffer' | 'writeGlobalBuffer' | 'createCamera' | 'moveCamera', args: Array<any> }[]}
+       * method: 'draw' | 'stop' | 'create' | 'addToScene' | 'removeFromScene' | 'update' | 'startGame' | 'createGlobalBuffer' | 'writeGlobalBuffer' | 'createCamera' | 'moveCamera' | 'freeEntity', args: Array<any> }[]}
        */
       #waitingQueue = [];
 
@@ -240,6 +240,23 @@ export default class Game {
                   return;
             }
             this.#thread.sendMessage( Msg.removeFromScene, {
+                  id
+            });
+            return this;
+      }
+      /**
+       * 
+       * @param {string} id 
+       */
+      freeEntity( id ) {
+            if( !this.#isReady ){
+                  this.#waitingQueue.push({
+                        method: 'freeEntity',
+                        args: [ id, ]
+                  });
+                  return;
+            }
+            this.#thread.sendMessage( Msg.freeEntity, {
                   id
             });
             return this;
