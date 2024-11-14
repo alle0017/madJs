@@ -1,5 +1,5 @@
 import Game from "./madjs/index.js";
-import { Scene, BasicEntity3D,TexturedEntity } from "./madjs/index.js";
+import { Scene, SpriteEntity, } from "./madjs/index.js";
 
 /**
  * @extends Scene
@@ -31,35 +31,8 @@ class Chapter1 extends Scene {
             this.x = 0;
             this.z = 0;
 
-            this.e = new TexturedEntity( game, {
-                  indices: [ 
-                        0, 1, 2, 
-                        2, 1, 3,
-                  ],
-                  vertices: [
-                        0, 0, 0,
-                        1, 0, 0,
-                        0, 1, 0,
-                        1, 1, 0,
-                  ],
-                  texture: {
-                        //@ts-ignore
-                        img: import.meta.resolve('./cat.jpg'),
-                        width: 1000,
-                        height: 1000,
-                        format: 'rgba8unorm',
-                        dimension: '2d',
-                  },
-                  sampler: {
-                        addressMode: {}
-                  },
-                  textureCoordinates: [
-                        0,0,
-                        1,0,
-                        0,1,
-                        1,1,
-                  ]
-            });
+            //@ts-ignore
+            this.e = new SpriteEntity( game, import.meta.resolve('./cat.jpg'), 1000, 1000 );
 
             window.addEventListener( 'keydown', e =>{
                   this.addEntity( this.e );
